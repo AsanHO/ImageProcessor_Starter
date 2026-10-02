@@ -1,0 +1,29 @@
+# Visual Studio 로컬 설정
+.vs/
+*.user
+*.suo
+*.vcxproj.filters.user
+CppProperties.json
+
+# 빌드 결과물
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+Win32/
+[Bb]in/
+[Oo]bj/
+
+# 중간 산출물
+*.obj
+*.o
+*.pdb
+*.ilk
+*.idb
+*.exe
+*.ipch
+*.tlog
+*.log
+*.pch
+*.iobj
+*.ipdb
