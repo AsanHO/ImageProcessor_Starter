@@ -91,6 +91,7 @@
     <ClCompile Include="GrayscaleFilter.cpp" />
     <ClCompile Include="ThresholdFilter.cpp" />
     <ClCompile Include="BrightnessContrastFilter.cpp" />
+    <ClCompile Include="ConvolutionFilter.cpp" />
     <ClCompile Include="FlipFilter.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +104,7 @@
     <ClInclude Include="GrayscaleFilter.h" />
     <ClInclude Include="ThresholdFilter.h" />
     <ClInclude Include="BrightnessContrastFilter.h" />
+    <ClInclude Include="ConvolutionFilter.h" />
     <ClInclude Include="FlipFilter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

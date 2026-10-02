@@ -9,6 +9,9 @@
     <ClCompile Include="BrightnessContrastFilter.cpp">
       <Filter>Filters</Filter>
     </ClCompile>
+    <ClCompile Include="ConvolutionFilter.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
     <ClCompile Include="FlipFilter.cpp">
       <Filter>Filters</Filter>
     </ClCompile>
@@ -27,6 +30,9 @@
     <ClInclude Include="FilterBase.h" />
     <ClInclude Include="FilterFactory.h" />
     <ClInclude Include="BrightnessContrastFilter.h">
+      <Filter>Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="ConvolutionFilter.h">
       <Filter>Filters</Filter>
     </ClInclude>
     <ClInclude Include="FlipFilter.h">

@@ -5,6 +5,7 @@
 #include "FilterFactory.h"
 #include "Exceptions.h"
 #include "BrightnessContrastFilter.h"
+#include "ConvolutionFilter.h"
 #include "FlipFilter.h"
 #include "GrayscaleFilter.h"
 #include "ThresholdFilter.h"
@@ -89,6 +90,14 @@ namespace ip {
 			requireArgCount(name, args, 1);
 			return new ThresholdFilter(parseFloat(args[0]));
 		}
+		else if (name == "blur") {
+			requireArgCount(name, args, 0);
+			return new ConvolutionFilter(ConvolutionFilter::BLUR);
+		}
+		else if (name == "sharpen") {
+			requireArgCount(name, args, 0);
+			return new ConvolutionFilter(ConvolutionFilter::SHARPEN);
+		}
 		else if (name == "flip") {
 			requireArgCount(name, args, 1);
 			const std::string direction = toLower(args[0]);
@@ -102,7 +111,7 @@ namespace ip {
 		}
 
 		throw FilterError("Unknown filter: '" + name +
-			"' (available: grayscale, threshold:N, brightness_contrast:B:C, flip:h|v)");
+			"' (available: grayscale, threshold:N, brightness_contrast:B:C, blur, sharpen, flip:h|v)");
 	}
 
 } // namespace ip
