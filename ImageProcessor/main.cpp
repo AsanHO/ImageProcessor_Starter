@@ -14,13 +14,10 @@
 #include "CommandLineParser.h"
 #include "ImageBuffer.h"
 #include "Exceptions.h"
+#include "FilterFactory.h"
 
 #include <iostream>
-
- // TODO: 본인이 구현한 필터 헤더를 include 하세요.
- // #include "GrayscaleFilter.h"
- // #include "ThresholdFilter.h"
- // ...
+#include <string>
 
 int main(int argc, char* argv[]) {
     try {
@@ -56,8 +53,18 @@ int main(int argc, char* argv[]) {
         //     - 로그 파일 출력 (CLI 옵션 확장 필요)
         // ───────────────────────────────────────────────────────
 
-        // ↓ 여기에 필터 적용 코드를 작성하세요.
-
+        // 필터 스펙 문자열("name:arg") → 필터 객체. 새 필터는 FilterFactory 에만 등록하면 된다.
+        ip::FilterBase* filter = ip::FilterFactory::create(options.filterName);
+        const std::string description = filter->describe();
+        try {
+            image = filter->apply(image);
+        }
+        catch (...) {
+            delete filter;  // 예외가 나도 누수가 없도록 해제 후 다시 던진다.
+            throw;
+        }
+        delete filter;
+        std::cout << "Applied: " << description << "\n";
 
 
         // ── BMP 저장 (제공된 코드) ──────────────────────────────
