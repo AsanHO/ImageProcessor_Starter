@@ -89,6 +89,9 @@
     <ClCompile Include="CommandLineParser.cpp" />
     <ClCompile Include="FilterFactory.cpp" />
     <ClCompile Include="GrayscaleFilter.cpp" />
+    <ClCompile Include="ThresholdFilter.cpp" />
+    <ClCompile Include="BrightnessContrastFilter.cpp" />
+    <ClCompile Include="FlipFilter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exceptions.h" />
@@ -98,6 +101,9 @@
     <ClInclude Include="FilterBase.h" />
     <ClInclude Include="FilterFactory.h" />
     <ClInclude Include="GrayscaleFilter.h" />
+    <ClInclude Include="ThresholdFilter.h" />
+    <ClInclude Include="BrightnessContrastFilter.h" />
+    <ClInclude Include="FlipFilter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
