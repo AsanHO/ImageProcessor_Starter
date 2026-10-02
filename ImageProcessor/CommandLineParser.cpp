@@ -5,6 +5,7 @@
 #include "CommandLineParser.h"
 #include "Exceptions.h"
 
+#include <cstdlib>
 #include <iostream>
 #include <string>
 
@@ -73,3 +74,10 @@ void CommandLineParser::printUsage(const std::string& exeName) {
 }
 
 } // namespace ip
+/*
+todo:
+이 파서의 한계 (알아 두면 좋은 점)
+1. 값 검사가 없다.
+-i -o x 입력시
+-o가 inputPath의 값으로 들어가 버립니다. 
+*/
