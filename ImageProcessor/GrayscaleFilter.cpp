@@ -7,17 +7,19 @@
 #include <cstddef>
 #include <cstdint>
 
+using namespace std;
+
 namespace ip {
 
 ImageBuffer GrayscaleFilter::apply(const ImageBuffer& input) const {
     ImageBuffer output(input.width(), input.height());
 
-    const std::uint8_t* src = input.data();
-    std::uint8_t* dst = output.data();
-    const std::size_t pixelCount =
-        static_cast<std::size_t>(input.width()) * static_cast<std::size_t>(input.height());
+    const uint8_t* src = input.data();
+    uint8_t* dst = output.data();
+    const size_t pixelCount =
+        static_cast<size_t>(input.width()) * static_cast<size_t>(input.height());
 
-    for (std::size_t i = 0; i < pixelCount; ++i) {
+    for (size_t i = 0; i < pixelCount; ++i) {
         // 메모리 채널 순서는 B, G, R.
         const float b = src[0];
         const float g = src[1];

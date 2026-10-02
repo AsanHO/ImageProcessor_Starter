@@ -9,6 +9,8 @@
 #include <cstdint>
 #include <sstream>
 
+using namespace std;
+
 namespace ip {
 
 BrightnessContrastFilter::BrightnessContrastFilter(float brightness, float contrast)
@@ -16,12 +18,12 @@ BrightnessContrastFilter::BrightnessContrastFilter(float brightness, float contr
 {
     // 부정(!)으로 검사하면 NaN(숫자가 아닌 값)도 함께 걸러진다.
     if (!(brightness >= -255.0f && brightness <= 255.0f)) {
-        std::ostringstream message;
+        ostringstream message;
         message << "brightness must be in [-255, 255] (got " << brightness << ")";
         throw FilterError(message.str());
     }
     if (!(contrast >= 0.0f && contrast <= 5.0f)) {
-        std::ostringstream message;
+        ostringstream message;
         message << "contrast must be in [0, 5] (got " << contrast << ")";
         throw FilterError(message.str());
     }
@@ -30,11 +32,11 @@ BrightnessContrastFilter::BrightnessContrastFilter(float brightness, float contr
 ImageBuffer BrightnessContrastFilter::apply(const ImageBuffer& input) const {
     ImageBuffer output(input.width(), input.height());
 
-    const std::uint8_t* src = input.data();
-    std::uint8_t* dst = output.data();
-    const std::size_t count = input.dataSize();  // 채널 구분 없이 모든 값에 동일하게 적용
+    const uint8_t* src = input.data();
+    uint8_t* dst = output.data();
+    const size_t dataCount = input.dataSize();  // 채널 구분 없이 모든 값에 동일하게 적용
 
-    for (std::size_t i = 0; i < count; ++i) {
+    for (size_t i = 0; i < dataCount; ++i) {
         // 중간 밝기(128)를 기준으로 대비를 조절한 뒤 밝기를 더한다.
         const float result = (src[i] - 128.0f) * m_contrast + 128.0f + m_brightness;
 
@@ -44,8 +46,8 @@ ImageBuffer BrightnessContrastFilter::apply(const ImageBuffer& input) const {
     return output;
 }
 
-std::string BrightnessContrastFilter::describe() const {
-    std::ostringstream text;
+string BrightnessContrastFilter::describe() const {
+    ostringstream text;
     text << name() << ":" << m_brightness << ":" << m_contrast;
     return text.str();
 }

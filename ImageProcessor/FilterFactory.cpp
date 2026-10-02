@@ -12,35 +12,37 @@
 
 #include <cctype>
 
+using namespace std;
+
 namespace ip {
 
 	namespace {
 
 		/// 앞뒤 공백을 제거한다.
-		std::string trim(const std::string& s) {
-			const std::string::size_type first = s.find_first_not_of(" \t\r\n");
-			if (first == std::string::npos) {
+		string trim(const string& s) {
+			const string::size_type first = s.find_first_not_of(" \t\r\n");
+			if (first == string::npos) {
 				return "";
 			}
-			const std::string::size_type last = s.find_last_not_of(" \t\r\n");
+			const string::size_type last = s.find_last_not_of(" \t\r\n");
 			return s.substr(first, last - first + 1);
 		}
 
 		/// 소문자로 변환한다.
-		std::string toLower(std::string s) {
-			for (std::size_t i = 0; i < s.size(); ++i) {
-				s[i] = static_cast<char>(std::tolower(static_cast<unsigned char>(s[i])));
+		string toLower(string s) {
+			for (size_t i = 0; i < s.size(); ++i) {
+				s[i] = static_cast<char>(tolower(static_cast<unsigned char>(s[i])));
 			}
 			return s;
 		}
 
 		/// "name:a:b" 를 ':' 기준으로 잘라 {"name", "a", "b"} 로 만든다.
-		std::vector<std::string> split(const std::string& text, char delimiter) {
-			std::vector<std::string> tokens;
-			std::string::size_type start = 0;
+		vector<string> split(const string& text, char delimiter) {
+			vector<string> tokens;
+			string::size_type start = 0;
 			while (true) {
-				const std::string::size_type pos = text.find(delimiter, start);
-				if (pos == std::string::npos) {
+				const string::size_type pos = text.find(delimiter, start);
+				if (pos == string::npos) {
 					tokens.push_back(trim(text.substr(start)));
 					break;
 				}
@@ -51,31 +53,31 @@ namespace ip {
 		}
 
 		/// 필터가 요구하는 인자 개수와 실제 개수가 같은지 검사한다.
-		void requireArgCount(const std::string& filterName,
-			const std::vector<std::string>& args,
-			std::size_t expected) {
+		void requireArgCount(const string& filterName,
+			const vector<string>& args,
+			size_t expected) {
 			if (args.size() != expected) {
-				throw FilterError("'" + filterName + "' takes " + std::to_string(expected) +
-					" argument(s) (got " + std::to_string(args.size()) + ")");
+				throw FilterError("'" + filterName + "' takes " + to_string(expected) +
+					" argument(s) (got " + to_string(args.size()) + ")");
 			}
 		}
 
 		/// 문자열을 실수(float)로 변환한다. 예) "128" → 128.0f, "1.5" → 1.5f
 		/// (값의 허용 범위 검사는 각 필터의 생성자가 담당한다.)
-		float parseFloat(const std::string& text) {
-			return std::stof(text);
+		float parseFloat(const string& text) {
+			return stof(text);
 		}
 
 	} // anonymous namespace
 
-	FilterBase* FilterFactory::create(const std::string& spec) {
+	FilterBase* FilterFactory::create(const string& spec) {
 		// "name:arg1:arg2" → name, {arg1, arg2}
-		const std::vector<std::string> tokens = split(spec, ':');
-		const std::string name = toLower(tokens[0]);
+		const vector<string> tokens = split(spec, ':');
+		const string name = toLower(tokens[0]);
 		if (name.empty()) {
 			throw FilterError("Empty filter name in spec: '" + spec + "'");
 		}
-		const std::vector<std::string> args(tokens.begin() + 1, tokens.end());
+		const vector<string> args(tokens.begin() + 1, tokens.end());
 
 		if (name == "grayscale") {
 			requireArgCount(name, args, 0);
@@ -100,7 +102,7 @@ namespace ip {
 		}
 		else if (name == "flip") {
 			requireArgCount(name, args, 1);
-			const std::string direction = toLower(args[0]);
+			const string direction = toLower(args[0]);
 			if (direction == "h") {
 				return new FlipFilter(FlipFilter::HORIZONTAL);
 			}

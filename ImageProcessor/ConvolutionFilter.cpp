@@ -7,6 +7,8 @@
 #include <cstddef>
 #include <cstdint>
 
+using namespace std;
+
 namespace ip {
 
 ConvolutionFilter::ConvolutionFilter(Kernel kernel)
@@ -41,8 +43,8 @@ ImageBuffer ConvolutionFilter::apply(const ImageBuffer& input) const {
     const int height = input.height();
     ImageBuffer output(width, height);
 
-    const std::uint8_t* src = input.data();
-    std::uint8_t* dst = output.data();
+    const uint8_t* src = input.data();
+    uint8_t* dst = output.data();
     const int radius = KERNEL_SIZE / 2;  // 3x3 이면 1: 중심에서 상하좌우로 1칸
 
     for (int y = 0; y < height; ++y) {
@@ -61,15 +63,15 @@ ImageBuffer ConvolutionFilter::apply(const ImageBuffer& input) const {
                         if (sx < 0)        { sx = 0; }
                         if (sx > width - 1)  { sx = width - 1; }
 
-                        const std::size_t srcIndex =
-                            (static_cast<std::size_t>(sy) * width + sx) * ImageBuffer::CHANNELS + c;
+                        const size_t srcIndex =
+                            (static_cast<size_t>(sy) * width + sx) * ImageBuffer::CHANNELS + c;
                         const float weight = m_weights[(ky + radius) * KERNEL_SIZE + (kx + radius)];
                         sum += weight * src[srcIndex];
                     }
                 }
 
-                const std::size_t dstIndex =
-                    (static_cast<std::size_t>(y) * width + x) * ImageBuffer::CHANNELS + c;
+                const size_t dstIndex =
+                    (static_cast<size_t>(y) * width + x) * ImageBuffer::CHANNELS + c;
                 dst[dstIndex] = clampToUint8(sum);
             }
         }
@@ -77,7 +79,7 @@ ImageBuffer ConvolutionFilter::apply(const ImageBuffer& input) const {
     return output;
 }
 
-std::string ConvolutionFilter::name() const {
+string ConvolutionFilter::name() const {
     return (m_kernel == BLUR) ? "blur" : "sharpen";
 }
 
