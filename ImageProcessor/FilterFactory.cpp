@@ -68,6 +68,12 @@ namespace ip {
 			return stof(text);
 		}
 
+		/// 문자열을 정수(int)로 변환한다. 예) "4" → 4
+		/// (값의 허용 범위 검사는 각 필터의 생성자가 담당한다.)
+		int parseInt(const string& text) {
+			return stoi(text);
+		}
+
 	} // anonymous namespace
 
 	FilterBase* FilterFactory::create(const string& spec) {
@@ -92,13 +98,19 @@ namespace ip {
 			requireArgCount(name, args, 1);
 			return new ThresholdFilter(parseFloat(args[0]));
 		}
-		else if (name == "blur") {
-			requireArgCount(name, args, 0);
-			return new ConvolutionFilter(ConvolutionFilter::BLUR);
-		}
-		else if (name == "sharpen") {
-			requireArgCount(name, args, 0);
-			return new ConvolutionFilter(ConvolutionFilter::SHARPEN);
+		else if (name == "blur" || name == "sharpen") {
+			// 형식: blur 또는 blur:<스레드 수>   예) blur (자동, 멀티스레드), blur:1 (싱글), blur:4
+			if (args.size() > 1) {
+				throw FilterError("'" + name + "' takes 0 or 1 argument (got " +
+					to_string(args.size()) + ")");
+			}
+			ConvolutionFilter::Kernel kernel = (name == "blur") ? ConvolutionFilter::BLUR
+				: ConvolutionFilter::SHARPEN;
+			int threadCount = 0;  // 0 = 자동 (CPU 가 지원하는 스레드 수)
+			if (args.size() == 1) {
+				threadCount = parseInt(args[0]);
+			}
+			return new ConvolutionFilter(kernel, threadCount);
 		}
 		else if (name == "flip") {
 			requireArgCount(name, args, 1);
@@ -113,7 +125,7 @@ namespace ip {
 		}
 
 		throw FilterError("Unknown filter: '" + name +
-			"' (available: grayscale, threshold:N, brightness_contrast:B:C, blur, sharpen, flip:h|v)");
+			"' (available: grayscale, threshold:N, brightness_contrast:B:C, blur[:threads], sharpen[:threads], flip:h|v)");
 	}
 
 	void FilterFactory::createPipeline(const string& pipelineSpec, FilterPipeline& pipeline) {
