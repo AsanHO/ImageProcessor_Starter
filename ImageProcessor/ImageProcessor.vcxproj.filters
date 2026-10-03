@@ -7,6 +7,7 @@
     <ClCompile Include="CommandLineParser.cpp" />
     <ClCompile Include="FilterFactory.cpp" />
     <ClCompile Include="FilterPipeline.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="BrightnessContrastFilter.cpp">
       <Filter>Filters</Filter>
     </ClCompile>
@@ -31,6 +32,7 @@
     <ClInclude Include="FilterBase.h" />
     <ClInclude Include="FilterFactory.h" />
     <ClInclude Include="FilterPipeline.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="BrightnessContrastFilter.h">
       <Filter>Filters</Filter>
     </ClInclude>

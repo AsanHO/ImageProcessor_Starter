@@ -19,6 +19,7 @@ struct ProgramOptions {
     std::string outputPath;  ///< --output / -o
     std::string filterName;  ///< --filter / -f   (단일 필터, 예: "threshold:128")
     std::string pipelineSpec;  ///< --pipeline / -p (',' 로 연결, 예: "grayscale,blur")
+    std::string logPath;       ///< --log / -l      (비어 있으면 로그를 남기지 않음)
 };
 
 class CommandLineParser {

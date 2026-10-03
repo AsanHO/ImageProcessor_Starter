@@ -39,6 +39,9 @@ ProgramOptions CommandLineParser::parse(int argc, char* argv[]) {
         else if (arg == "--pipeline" || arg == "-p") {
             options.pipelineSpec = nextArg(argc, argv, i, arg);
         }
+        else if (arg == "--log" || arg == "-l") {
+            options.logPath = nextArg(argc, argv, i, arg);
+        }
         else if (arg == "--help" || arg == "-h") {
             printUsage(argv[0]);
             std::exit(0);
@@ -79,9 +82,11 @@ void CommandLineParser::printUsage(const std::string& exeName) {
         << "  -f, --filter   <name>   Single filter (e.g. grayscale, threshold:128)\n"
         << "  -p, --pipeline <list>   Comma-separated filters applied in order\n"
         << "                          (use either --filter or --pipeline, not both)\n"
+        << "  -l, --log      <path>   Append processing log (time, parameters, result) to a file\n"
         << "  -h, --help              Show this message\n\n"
         << "Examples:\n"
         << "  " << exeName << " -i input.bmp -o result.bmp -f grayscale\n"
+        << "  " << exeName << " -i input.bmp -o result.bmp -f blur --log run.log\n"
         << "  " << exeName << " -i input.bmp -o result.bmp -p \"grayscale, blur, threshold:128\"\n";
 }
 

@@ -16,18 +16,35 @@
 #include "Exceptions.h"
 #include "FilterFactory.h"
 #include "FilterPipeline.h"
+#include "Logger.h"
 
 #include <iostream>
 #include <string>
 
 int main(int argc, char* argv[]) {
+    // 로거는 --log 가 지정되기 전까지 비활성 상태이므로, 어디서든 안전하게 호출할 수 있다.
+    // try 바깥에 두어야 catch 블록에서도 실패를 기록할 수 있다.
+    ip::Logger logger;
+    ip::Stopwatch totalTime;  // 프로그램 전체 처리 시간
+
     try {
         // ── CLI 인자 파싱 (제공된 코드) ─────────────────────────
         const ip::ProgramOptions options = ip::CommandLineParser::parse(argc, argv);
 
+        // ── 로그 파일 열기 ──────────────────────────────────────
+        // 로그를 못 남기는 것이 이미지 처리를 막아서는 안 되므로 경고만 출력하고 계속한다.
+        if (!options.logPath.empty() && !logger.open(options.logPath)) {
+            std::cerr << "Warning: cannot open log file: " << options.logPath << "\n";
+        }
+        const std::string request = options.pipelineSpec.empty()
+            ? "filter=\"" + options.filterName + "\""
+            : "pipeline=\"" + options.pipelineSpec + "\"";
+        logger.info("START input=" + options.inputPath + " output=" + options.outputPath + " " + request);
+
         // ── BMP 로드 (제공된 코드) ──────────────────────────────
         ip::ImageBuffer image = ip::BmpParser::loadFromFile(options.inputPath);
         std::cout << "Loaded: " << image.width() << " x " << image.height() << "\n";
+        logger.info("LOADED " + std::to_string(image.width()) + "x" + std::to_string(image.height()));
 
         // ───────────────────────────────────────────────────────
         // TODO: options.filterName 에 따라 적절한 필터를 생성하고
@@ -63,30 +80,37 @@ int main(int argc, char* argv[]) {
         else {
             pipeline.add(ip::FilterFactory::create(options.filterName));
         }
-        image = pipeline.run(image);
+        logger.info("PIPELINE " + pipeline.describe());
+        image = pipeline.run(image, &logger);  // 필터마다 걸린 시간이 로그에 기록된다
         std::cout << "Applied: " << pipeline.describe() << "\n";
 
 
         // ── BMP 저장 (제공된 코드) ──────────────────────────────
         ip::BmpParser::saveToFile(options.outputPath, image);
         std::cout << "Saved:  " << options.outputPath << "\n";
+        logger.info("SAVED " + options.outputPath);
+        logger.info("SUCCESS total=" + totalTime.elapsedText());
         return 0;
     }
     catch (const ip::ArgumentError& e) {
         std::cerr << e.what() << "\n\n";
         ip::CommandLineParser::printUsage(argc > 0 ? argv[0] : "ImageProcessor");
+        logger.error("FAILED exit=4 total=" + totalTime.elapsedText() + " reason=" + e.what());
         return 4;
     }
     catch (const ip::BmpParseError& e) {
         std::cerr << e.what() << std::endl;
+        logger.error("FAILED exit=2 total=" + totalTime.elapsedText() + " reason=" + e.what());
         return 2;
     }
     catch (const ip::FilterError& e) {
         std::cerr << e.what() << std::endl;
+        logger.error("FAILED exit=3 total=" + totalTime.elapsedText() + " reason=" + e.what());
         return 3;
     }
     catch (const std::exception& e) {
         std::cerr << "Unexpected error: " << e.what() << std::endl;
+        logger.error("FAILED exit=1 total=" + totalTime.elapsedText() + " reason=" + e.what());
         return 1;
     }
 }

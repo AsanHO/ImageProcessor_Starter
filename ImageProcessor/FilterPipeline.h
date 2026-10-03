@@ -11,6 +11,7 @@
 
 #include "FilterBase.h"
 #include "ImageBuffer.h"
+#include "Logger.h"
 
 #include <cstddef>
 #include <string>
@@ -40,9 +41,10 @@ public:
 
     /**
      * @brief 모든 필터를 순서대로 적용한 새 이미지를 반환한다. 입력은 변경하지 않는다.
+     * @param logger nullptr 이 아니면 필터마다 걸린 시간과 실패한 필터를 기록한다.
      * @throws FilterError 필터가 하나도 없는 경우.
      */
-    ImageBuffer run(const ImageBuffer& input) const;
+    ImageBuffer run(const ImageBuffer& input, Logger* logger = nullptr) const;
 
     /// "grayscale -> threshold:128" 형태의 설명 (콘솔/로그 출력용).
     std::string describe() const;

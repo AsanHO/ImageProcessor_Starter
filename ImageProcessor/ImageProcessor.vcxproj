@@ -89,6 +89,7 @@
     <ClCompile Include="CommandLineParser.cpp" />
     <ClCompile Include="FilterFactory.cpp" />
     <ClCompile Include="FilterPipeline.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="GrayscaleFilter.cpp" />
     <ClCompile Include="ThresholdFilter.cpp" />
     <ClCompile Include="BrightnessContrastFilter.cpp" />
@@ -103,6 +104,7 @@
     <ClInclude Include="FilterBase.h" />
     <ClInclude Include="FilterFactory.h" />
     <ClInclude Include="FilterPipeline.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="GrayscaleFilter.h" />
     <ClInclude Include="ThresholdFilter.h" />
     <ClInclude Include="BrightnessContrastFilter.h" />
