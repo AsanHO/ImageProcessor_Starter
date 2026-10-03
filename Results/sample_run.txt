@@ -1,58 +1,65 @@
-[2026-10-03 14:45:44] [INFO ] START input=.\Resource\1_astronaut.bmp output=.\Results\01_grayscale.bmp filter="grayscale"
-[2026-10-03 14:45:44] [INFO ] LOADED 512x512
-[2026-10-03 14:45:44] [INFO ] PIPELINE grayscale
-[2026-10-03 14:45:44] [INFO ] FILTER grayscale time=0.59ms
-[2026-10-03 14:45:44] [INFO ] SAVED .\Results\01_grayscale.bmp
-[2026-10-03 14:45:44] [INFO ] SUCCESS total=6.95ms
-[2026-10-03 14:45:44] [INFO ] START input=.\Resource\4_text_page.bmp output=.\Results\02_threshold_128.bmp filter="threshold:128"
-[2026-10-03 14:45:44] [INFO ] LOADED 384x191
-[2026-10-03 14:45:44] [INFO ] PIPELINE threshold:128
-[2026-10-03 14:45:44] [INFO ] FILTER threshold:128 time=0.18ms
-[2026-10-03 14:45:44] [INFO ] SAVED .\Results\02_threshold_128.bmp
-[2026-10-03 14:45:44] [INFO ] SUCCESS total=5.34ms
-[2026-10-03 14:45:44] [INFO ] START input=.\Resource\2_coffee.bmp output=.\Results\03_brightness_contrast.bmp filter="bc:30:1.4"
-[2026-10-03 14:45:44] [INFO ] LOADED 600x400
-[2026-10-03 14:45:44] [INFO ] PIPELINE brightness_contrast:30:1.4
-[2026-10-03 14:45:44] [INFO ] FILTER brightness_contrast:30:1.4 time=1.39ms
-[2026-10-03 14:45:44] [INFO ] SAVED .\Results\03_brightness_contrast.bmp
-[2026-10-03 14:45:44] [INFO ] SUCCESS total=7.26ms
-[2026-10-03 14:45:44] [INFO ] START input=.\Resource\3_chelsea_cat.bmp output=.\Results\04_blur.bmp filter="blur"
-[2026-10-03 14:45:44] [INFO ] LOADED 451x300
-[2026-10-03 14:45:44] [INFO ] PIPELINE blur:12
-[2026-10-03 14:45:44] [INFO ] FILTER blur:12 time=2.12ms
-[2026-10-03 14:45:44] [INFO ] SAVED .\Results\04_blur.bmp
-[2026-10-03 14:45:44] [INFO ] SUCCESS total=6.81ms
-[2026-10-03 14:45:44] [INFO ] START input=.\Resource\3_chelsea_cat.bmp output=.\Results\05_sharpen.bmp filter="sharpen"
-[2026-10-03 14:45:44] [INFO ] LOADED 451x300
-[2026-10-03 14:45:44] [INFO ] PIPELINE sharpen:12
-[2026-10-03 14:45:44] [INFO ] FILTER sharpen:12 time=2.53ms
-[2026-10-03 14:45:44] [INFO ] SAVED .\Results\05_sharpen.bmp
-[2026-10-03 14:45:44] [INFO ] SUCCESS total=7.16ms
-[2026-10-03 14:45:44] [INFO ] START input=.\Resource\3_chelsea_cat.bmp output=.\Results\06_flip_horizontal.bmp filter="flip:h"
-[2026-10-03 14:45:44] [INFO ] LOADED 451x300
-[2026-10-03 14:45:44] [INFO ] PIPELINE flip:h
-[2026-10-03 14:45:44] [INFO ] FILTER flip:h time=0.16ms
-[2026-10-03 14:45:44] [INFO ] SAVED .\Results\06_flip_horizontal.bmp
-[2026-10-03 14:45:44] [INFO ] SUCCESS total=4.68ms
-[2026-10-03 14:45:44] [INFO ] START input=.\Resource\3_chelsea_cat.bmp output=.\Results\07_flip_vertical.bmp filter="flip:v"
-[2026-10-03 14:45:44] [INFO ] LOADED 451x300
-[2026-10-03 14:45:44] [INFO ] PIPELINE flip:v
-[2026-10-03 14:45:44] [INFO ] FILTER flip:v time=0.08ms
-[2026-10-03 14:45:44] [INFO ] SAVED .\Results\07_flip_vertical.bmp
-[2026-10-03 14:45:44] [INFO ] SUCCESS total=4.81ms
-[2026-10-03 14:45:44] [INFO ] START input=.\Resource\3_chelsea_cat.bmp output=.\Results\08_pipeline.bmp pipeline="grayscale, blur, threshold:128"
-[2026-10-03 14:45:44] [INFO ] LOADED 451x300
-[2026-10-03 14:45:44] [INFO ] PIPELINE grayscale -> blur:12 -> threshold:128
-[2026-10-03 14:45:44] [INFO ] FILTER grayscale time=0.31ms
-[2026-10-03 14:45:44] [INFO ] FILTER blur:12 time=2.21ms
-[2026-10-03 14:45:44] [INFO ] FILTER threshold:128 time=0.19ms
-[2026-10-03 14:45:44] [INFO ] SAVED .\Results\08_pipeline.bmp
-[2026-10-03 14:45:44] [INFO ] SUCCESS total=7.31ms
-[2026-10-03 14:45:44] [INFO ] START input=.\Resource\3_chelsea_cat.bmp output=.\Results\09_blur_x3.bmp pipeline="blur, blur, blur"
-[2026-10-03 14:45:44] [INFO ] LOADED 451x300
-[2026-10-03 14:45:44] [INFO ] PIPELINE blur:12 -> blur:12 -> blur:12
-[2026-10-03 14:45:44] [INFO ] FILTER blur:12 time=1.93ms
-[2026-10-03 14:45:44] [INFO ] FILTER blur:12 time=1.50ms
-[2026-10-03 14:45:44] [INFO ] FILTER blur:12 time=1.38ms
-[2026-10-03 14:45:44] [INFO ] SAVED .\Results\09_blur_x3.bmp
-[2026-10-03 14:45:44] [INFO ] SUCCESS total=9.32ms
+[2026-10-03 14:55:57] [INFO ] START input=.\Resource\1_astronaut.bmp output=.\Results\01_grayscale.bmp filter="grayscale"
+[2026-10-03 14:55:57] [INFO ] LOADED 512x512
+[2026-10-03 14:55:57] [INFO ] PIPELINE grayscale
+[2026-10-03 14:55:57] [INFO ] FILTER grayscale time=0.61ms
+[2026-10-03 14:55:57] [INFO ] SAVED .\Results\01_grayscale.bmp
+[2026-10-03 14:55:57] [INFO ] SUCCESS total=6.41ms
+[2026-10-03 14:55:57] [INFO ] START input=.\Resource\4_text_page.bmp output=.\Results\02_threshold_128.bmp filter="threshold:128"
+[2026-10-03 14:55:57] [INFO ] LOADED 384x191
+[2026-10-03 14:55:57] [INFO ] PIPELINE threshold:128
+[2026-10-03 14:55:57] [INFO ] FILTER threshold:128 time=0.16ms
+[2026-10-03 14:55:57] [INFO ] SAVED .\Results\02_threshold_128.bmp
+[2026-10-03 14:55:57] [INFO ] SUCCESS total=3.78ms
+[2026-10-03 14:55:57] [INFO ] START input=.\Resource\2_coffee.bmp output=.\Results\03_brightness_contrast.bmp filter="bc:30:1.4"
+[2026-10-03 14:55:57] [INFO ] LOADED 600x400
+[2026-10-03 14:55:57] [INFO ] PIPELINE brightness_contrast:30:1.4
+[2026-10-03 14:55:57] [INFO ] FILTER brightness_contrast:30:1.4 time=1.42ms
+[2026-10-03 14:55:57] [INFO ] SAVED .\Results\03_brightness_contrast.bmp
+[2026-10-03 14:55:57] [INFO ] SUCCESS total=6.42ms
+[2026-10-03 14:55:57] [INFO ] START input=.\Resource\3_chelsea_cat.bmp output=.\Results\04_blur.bmp filter="blur"
+[2026-10-03 14:55:57] [INFO ] LOADED 451x300
+[2026-10-03 14:55:57] [INFO ] PIPELINE blur:12
+[2026-10-03 14:55:57] [INFO ] FILTER blur:12 time=2.13ms
+[2026-10-03 14:55:57] [INFO ] SAVED .\Results\04_blur.bmp
+[2026-10-03 14:55:57] [INFO ] SUCCESS total=6.00ms
+[2026-10-03 14:55:57] [INFO ] START input=.\Resource\3_chelsea_cat.bmp output=.\Results\05_sharpen.bmp filter="sharpen"
+[2026-10-03 14:55:57] [INFO ] LOADED 451x300
+[2026-10-03 14:55:57] [INFO ] PIPELINE sharpen:12
+[2026-10-03 14:55:57] [INFO ] FILTER sharpen:12 time=2.51ms
+[2026-10-03 14:55:57] [INFO ] SAVED .\Results\05_sharpen.bmp
+[2026-10-03 14:55:57] [INFO ] SUCCESS total=6.54ms
+[2026-10-03 14:55:57] [INFO ] START input=.\Resource\3_chelsea_cat.bmp output=.\Results\06_flip_horizontal.bmp filter="flip:h"
+[2026-10-03 14:55:57] [INFO ] LOADED 451x300
+[2026-10-03 14:55:57] [INFO ] PIPELINE flip:h
+[2026-10-03 14:55:57] [INFO ] FILTER flip:h time=0.13ms
+[2026-10-03 14:55:57] [INFO ] SAVED .\Results\06_flip_horizontal.bmp
+[2026-10-03 14:55:57] [INFO ] SUCCESS total=3.77ms
+[2026-10-03 14:55:57] [INFO ] START input=.\Resource\3_chelsea_cat.bmp output=.\Results\07_flip_vertical.bmp filter="flip:v"
+[2026-10-03 14:55:57] [INFO ] LOADED 451x300
+[2026-10-03 14:55:57] [INFO ] PIPELINE flip:v
+[2026-10-03 14:55:57] [INFO ] FILTER flip:v time=0.08ms
+[2026-10-03 14:55:57] [INFO ] SAVED .\Results\07_flip_vertical.bmp
+[2026-10-03 14:55:57] [INFO ] SUCCESS total=3.90ms
+[2026-10-03 14:55:57] [INFO ] START input=.\Resource\3_chelsea_cat.bmp output=.\Results\08_pipeline.bmp pipeline="grayscale, blur, threshold:128"
+[2026-10-03 14:55:57] [INFO ] LOADED 451x300
+[2026-10-03 14:55:57] [INFO ] PIPELINE grayscale -> blur:12 -> threshold:128
+[2026-10-03 14:55:57] [INFO ] FILTER grayscale time=0.30ms
+[2026-10-03 14:55:57] [INFO ] FILTER blur:12 time=2.08ms
+[2026-10-03 14:55:57] [INFO ] FILTER threshold:128 time=0.19ms
+[2026-10-03 14:55:57] [INFO ] SAVED .\Results\08_pipeline.bmp
+[2026-10-03 14:55:57] [INFO ] SUCCESS total=6.51ms
+[2026-10-03 14:55:57] [INFO ] START input=.\Resource\3_chelsea_cat.bmp output=.\Results\09_blur_x10.bmp pipeline="blur, blur, blur, blur, blur, blur, blur, blur, blur, blur"
+[2026-10-03 14:55:57] [INFO ] LOADED 451x300
+[2026-10-03 14:55:57] [INFO ] PIPELINE blur:12 -> blur:12 -> blur:12 -> blur:12 -> blur:12 -> blur:12 -> blur:12 -> blur:12 -> blur:12 -> blur:12
+[2026-10-03 14:55:57] [INFO ] FILTER blur:12 time=2.17ms
+[2026-10-03 14:55:57] [INFO ] FILTER blur:12 time=1.56ms
+[2026-10-03 14:55:57] [INFO ] FILTER blur:12 time=1.51ms
+[2026-10-03 14:55:57] [INFO ] FILTER blur:12 time=1.46ms
+[2026-10-03 14:55:57] [INFO ] FILTER blur:12 time=1.50ms
+[2026-10-03 14:55:57] [INFO ] FILTER blur:12 time=1.60ms
+[2026-10-03 14:55:57] [INFO ] FILTER blur:12 time=1.42ms
+[2026-10-03 14:55:57] [INFO ] FILTER blur:12 time=1.30ms
+[2026-10-03 14:55:57] [INFO ] FILTER blur:12 time=1.29ms
+[2026-10-03 14:55:57] [INFO ] FILTER blur:12 time=1.36ms
+[2026-10-03 14:55:57] [INFO ] SAVED .\Results\09_blur_x10.bmp
+[2026-10-03 14:55:57] [INFO ] SUCCESS total=19.80ms

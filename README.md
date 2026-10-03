@@ -122,13 +122,13 @@ ImageProcessor.exe --input <path> --output <path> --pipeline <list>
 
 ### 필터 파이프라인 (고급)
 
-| 파이프라인 `grayscale, blur, threshold:128` | 블러 3번 `blur, blur, blur` |
+| 파이프라인 `grayscale, blur, threshold:128` | 블러 10번 `blur` x 10 |
 |---|---|
-| <img src="Results/08_pipeline.bmp" width="240"> | <img src="Results/09_blur_x3.bmp" width="240"> |
+| <img src="Results/08_pipeline.bmp" width="240"> | <img src="Results/09_blur_x10.bmp" width="240"> |
 
 ```powershell
 .\x64\Release\ImageProcessor.exe --input .\Resource\3_chelsea_cat.bmp --output .\Results\08_pipeline.bmp --pipeline "grayscale, blur, threshold:128"
-.\x64\Release\ImageProcessor.exe --input .\Resource\3_chelsea_cat.bmp --output .\Results\09_blur_x3.bmp --pipeline "blur, blur, blur"
+.\x64\Release\ImageProcessor.exe --input .\Resource\3_chelsea_cat.bmp --output .\Results\09_blur_x10.bmp --pipeline "blur, blur, blur, blur, blur, blur, blur, blur, blur, blur"
 ```
 
 콘솔 출력 예:
