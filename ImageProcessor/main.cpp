@@ -15,6 +15,7 @@
 #include "ImageBuffer.h"
 #include "Exceptions.h"
 #include "FilterFactory.h"
+#include "FilterPipeline.h"
 
 #include <iostream>
 #include <string>
@@ -53,18 +54,17 @@ int main(int argc, char* argv[]) {
         //     - 로그 파일 출력 (CLI 옵션 확장 필요)
         // ───────────────────────────────────────────────────────
 
-        // 필터 스펙 문자열("name:arg") → 필터 객체. 새 필터는 FilterFactory 에만 등록하면 된다.
-        ip::FilterBase* filter = ip::FilterFactory::create(options.filterName);
-        const std::string description = filter->describe();
-        try {
-            image = filter->apply(image);
+        // --filter 든 --pipeline 이든 "필터 목록"으로 통일해서 같은 경로로 실행한다.
+        // 파이프라인이 필터의 소유권을 가지므로, 중간에 예외가 나도 소멸자가 필터를 해제한다.
+        ip::FilterPipeline pipeline;
+        if (!options.pipelineSpec.empty()) {
+            ip::FilterFactory::createPipeline(options.pipelineSpec, pipeline);
         }
-        catch (...) {
-            delete filter;  // 예외가 나도 누수가 없도록 해제 후 다시 던진다.
-            throw;
+        else {
+            pipeline.add(ip::FilterFactory::create(options.filterName));
         }
-        delete filter;
-        std::cout << "Applied: " << description << "\n";
+        image = pipeline.run(image);
+        std::cout << "Applied: " << pipeline.describe() << "\n";
 
 
         // ── BMP 저장 (제공된 코드) ──────────────────────────────

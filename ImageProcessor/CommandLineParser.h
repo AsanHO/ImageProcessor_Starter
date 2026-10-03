@@ -17,7 +17,8 @@ namespace ip {
 struct ProgramOptions {
     std::string inputPath;   ///< --input  / -i
     std::string outputPath;  ///< --output / -o
-    std::string filterName;  ///< --filter / -f
+    std::string filterName;  ///< --filter / -f   (단일 필터, 예: "threshold:128")
+    std::string pipelineSpec;  ///< --pipeline / -p (',' 로 연결, 예: "grayscale,blur")
 };
 
 class CommandLineParser {

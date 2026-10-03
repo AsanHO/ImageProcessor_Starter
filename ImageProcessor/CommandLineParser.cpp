@@ -36,6 +36,9 @@ ProgramOptions CommandLineParser::parse(int argc, char* argv[]) {
         else if (arg == "--filter" || arg == "-f") {
             options.filterName = nextArg(argc, argv, i, arg);
         }
+        else if (arg == "--pipeline" || arg == "-p") {
+            options.pipelineSpec = nextArg(argc, argv, i, arg);
+        }
         else if (arg == "--help" || arg == "-h") {
             printUsage(argv[0]);
             std::exit(0);
@@ -52,8 +55,14 @@ ProgramOptions CommandLineParser::parse(int argc, char* argv[]) {
     if (options.outputPath.empty()) {
         throw ArgumentError("--output is required");
     }
-    if (options.filterName.empty()) {
-        throw ArgumentError("--filter is required");
+    // --filter 와 --pipeline 은 둘 중 정확히 하나만 지정해야 한다.
+    const bool hasFilter   = !options.filterName.empty();
+    const bool hasPipeline = !options.pipelineSpec.empty();
+    if (!hasFilter && !hasPipeline) {
+        throw ArgumentError("--filter or --pipeline is required");
+    }
+    if (hasFilter && hasPipeline) {
+        throw ArgumentError("--filter and --pipeline cannot be used together");
     }
 
     return options;
@@ -62,15 +71,18 @@ ProgramOptions CommandLineParser::parse(int argc, char* argv[]) {
 void CommandLineParser::printUsage(const std::string& exeName) {
     std::cout
         << "Usage:\n"
-        << "  " << exeName << " --input <path> --output <path> --filter <name>\n\n"
+        << "  " << exeName << " --input <path> --output <path> --filter <name>\n"
+        << "  " << exeName << " --input <path> --output <path> --pipeline <list>\n\n"
         << "Options:\n"
-        << "  -i, --input   <path>   Input BMP file (24-bit, uncompressed)\n"
-        << "  -o, --output  <path>   Output BMP file\n"
-        << "  -f, --filter  <name>   Filter to apply (e.g. grayscale, threshold:128)\n"
-        << "  -h, --help             Show this message\n\n"
+        << "  -i, --input    <path>   Input BMP file (24-bit, uncompressed)\n"
+        << "  -o, --output   <path>   Output BMP file\n"
+        << "  -f, --filter   <name>   Single filter (e.g. grayscale, threshold:128)\n"
+        << "  -p, --pipeline <list>   Comma-separated filters applied in order\n"
+        << "                          (use either --filter or --pipeline, not both)\n"
+        << "  -h, --help              Show this message\n\n"
         << "Examples:\n"
         << "  " << exeName << " -i input.bmp -o result.bmp -f grayscale\n"
-        << "  " << exeName << " -i input.bmp -o result.bmp -f threshold:128\n";
+        << "  " << exeName << " -i input.bmp -o result.bmp -p \"grayscale, blur, threshold:128\"\n";
 }
 
 } // namespace ip

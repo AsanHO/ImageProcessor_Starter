@@ -12,6 +12,7 @@
  */
 
 #include "FilterBase.h"
+#include "FilterPipeline.h"
 
 #include <string>
 #include <vector>
@@ -28,6 +29,16 @@ public:
      * @throws FilterError 알 수 없는 필터 이름, 잘못된 인자 개수/형식/범위.
      */
     static FilterBase* create(const std::string& spec);
+
+    /**
+     * @brief "grayscale, blur, threshold:128" 처럼 ',' 로 연결된 문자열을 잘라
+     *        필터를 순서대로 만들어 pipeline 에 추가한다.
+     *
+     * 생성된 필터의 소유권은 pipeline 으로 넘어가므로 호출자가 delete 할 필요가 없다.
+     * 중간에 예외가 나도 이미 추가된 필터는 pipeline 의 소멸자가 해제한다.
+     * @throws FilterError 빈 항목, 알 수 없는 필터 이름, 잘못된 인자.
+     */
+    static void createPipeline(const std::string& pipelineSpec, FilterPipeline& pipeline);
 };
 
 } // namespace ip

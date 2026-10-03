@@ -116,4 +116,12 @@ namespace ip {
 			"' (available: grayscale, threshold:N, brightness_contrast:B:C, blur, sharpen, flip:h|v)");
 	}
 
+	void FilterFactory::createPipeline(const string& pipelineSpec, FilterPipeline& pipeline) {
+		// "grayscale, blur, threshold:128" → {"grayscale", "blur", "threshold:128"}
+		const vector<string> specs = split(pipelineSpec, ',');
+		for (size_t i = 0; i < specs.size(); ++i) {
+			pipeline.add(create(specs[i]));
+		}
+	}
+
 } // namespace ip
